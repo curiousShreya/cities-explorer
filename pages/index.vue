@@ -72,7 +72,7 @@ const fetchCities = async (page: number = 0) => {
 };
 
 const handleSearch = (region: string) => {
-  cities.value =  region.length==0 ? originalCities.value : originalCities.value.filter(x => x.region.toLowerCase().includes(region));
+  cities.value =  region.length==0 ? originalCities.value : originalCities.value.filter(x => x.region.toLowerCase().includes(region.toLowerCase()));
 
 };
 
