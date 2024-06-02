@@ -1,3 +1,7 @@
+# For searching the cities on the basis of region in the searchbox, enter the regions which you can see when the page is loaded.
+Eg, Ordino, La Massana.
+
+
 # Nuxt 3 Minimal Starter
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
