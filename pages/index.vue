@@ -1,14 +1,18 @@
 <template>
   <div class="container mx-auto p-4">
-    <SearchBar @search="handleSearch" />
-    <div class="mb-4">
-      <ToggleSwitch v-model="showGrid" />
+    <SkeletonLoader v-if="isLoading" />
+    <div v-else>
+      <SearchBar @search="handleSearch" />
+      <div class="mb-4">
+        <ToggleSwitch v-model="showGrid" />
+      </div>
+      <CityGrid :cities="cities" v-if="showGrid" @show-nearby="showNearbyCities"/>
+      <CityCards :cities="cities" v-if="!showGrid" @show-nearby="showNearbyCities" />
+      <div class="mt-4" v-if="cities.length==0 && !isLoading">No data found</div>
+      <Pagination :total="total" :current="currentPage" @page-changed="fetchCities" v-if="cities.length==10" />
+      <CityModal v-if="showModal" :city="selectedCity" :nearbyCities="nearbyCities" @close="showModal = false" />
     </div>
-    <CityGrid :cities="cities" v-if="showGrid" @show-nearby="showNearbyCities"/>
-    <CityCards :cities="cities" v-if="!showGrid" @show-nearby="showNearbyCities" />
-    <div class="mt-4" v-if="cities.length==0 && !isLoading">No data found</div>
-    <Pagination :total="total" :current="currentPage" @page-changed="fetchCities" v-if="cities.length==10" />
-    <CityModal v-if="showModal" :city="selectedCity" :nearbyCities="nearbyCities" @close="showModal = false" />
+
   </div>
 </template>
 
@@ -20,6 +24,7 @@ import CityCards from '~/components/CityCards.vue';
 import Pagination from '~/components/Pagination.vue';
 import CityModal from '~/components/CityModal.vue';
 import {runtime} from "std-env";
+import SkeletonLoader from "~/components/SkeletonLoader.vue";
 
 interface City {
   id: number;
